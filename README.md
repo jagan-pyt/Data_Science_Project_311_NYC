@@ -244,66 +244,11 @@ Services_emergency.isna()
 Services_emergency.head()
 #Services_emergency["Complaint Type"].unique()
 Services_emergency.tail()
-                                    count
-Complaint Type            Status         
-Agency Issues             Closed        6
-Animal Abuse              Assigned      4
-                          Closed     7766
-                          Open          8
-Animal in a Park          Closed        1
-Bike/Roller/Skate Chronic Assigned      1
-                          Closed      424
-                          Open          2
-Blocked Driveway          Assigned     98
-                          Closed    76793
-                          Draft         1
-                          Open        152
-Derelict Vehicle          Assigned     27
-                          Closed    17585
-                          Open        106
-Disorderly Youth          Closed      286
-Drinking                  Closed     1275
-                          Open          5
-Ferry Complaint           Open          2
-Graffiti                  Closed      113
-Homeless Encampment       Assigned      4
-                          Closed     4410
-                          Open          2
-Illegal Fireworks         Closed      168
-Illegal Parking           Assigned    257
-                          Closed    74515
-                          Open        589
-Noise - Commercial        Assigned    156
-                          Closed    35245
-                          Open        176
-Noise - House of Worship  Closed      929
-                          Open          2
-Noise - Park              Assigned     11
-                          Closed     4021
-                          Open         10
-Noise - Street/Sidewalk   Assigned    201
-                          Closed    48068
-                          Draft         1
-                          Open        342
-Noise - Vehicle           Assigned     20
-                          Closed    17032
-                          Open         31
-Panhandling               Assigned      1
-                          Closed      305
-                          Open          1
-Posting Advertisement     Assigned      1
-                          Closed      647
-                          Open          2
-Squeegee                  Closed        4
-Traffic                   Assigned      2
-                          Closed     4493
-                          Open          3
-Urinating in Public       Closed      592
-Vending                   Assigned      3
-                          Closed     3793
-                          Open          6
+
 <class 'pandas.core.frame.DataFrame'>
 MultiIndex: 56 entries, ('Agency Issues', 'Closed') to ('Vending', 'Open')
+
+
 Data columns (total 1 columns):
  #   Column  Non-Null Count  Dtype
 ---  ------  --------------  -----
@@ -336,23 +281,15 @@ print(service['Complaint Type'].isnull().sum())
 # we could see there are no null/na values in city and complaint type except in Request closing time.
 2614
 0
+
 service['Request_Closing_Time'].mean()
 Timedelta('0 days 04:18:51.832782')
 #we will create a column with mean of Request closing time and  replace NA with mean.
 
 service['Mean_Request_Closing_Time_in_Hr'] = service['Request_Closing_Time_in_Hr'].fillna(service['Request_Closing_Time'].mean())
 service['Mean_Request_Closing_Time_in_Hr']
-0                           0.92
-1                           1.44
-2                           4.86
-3                           7.75
-4                           3.45
-                   ...          
-300693    0 days 04:18:51.832782
-300694                      2.01
-300695                      3.12
-300696                      4.09
-300697                      4.15
+
+
 Name: Mean_Request_Closing_Time_in_Hr, Length: 300698, dtype: object
 service['Request_Closing_Time_in_Hr'].dtypes
 dtype('float64')
@@ -360,35 +297,11 @@ select_col = service[["City","Complaint Type","Request_Closing_Time_in_Hr"]]
 Service_sorting_with_Request_time = select_col.copy()
 Service_sorting_with_Request_time.sort_values("Request_Closing_Time_in_Hr",axis= 0, ascending = True,na_position ='last').dropna()
 City	Complaint Type	Request_Closing_Time_in_Hr
-61125	NEW YORK	Noise - Commercial	0.02
-163683	BROOKLYN	Noise - Commercial	0.03
-222119	STATEN ISLAND	Noise - Street/Sidewalk	0.03
-60357	STATEN ISLAND	Posting Advertisement	0.03
-260083	NEW YORK	Noise - Commercial	0.03
-...	...	...	...
-12168	BROOKLYN	Derelict Vehicle	223.37
-283132	QUEENS	Animal in a Park	336.83
-21268	BROOKLYN	Animal Abuse	519.27
-23664	BROOKLYN	Illegal Parking	577.36
-244488	BROOKLYN	Noise - Street/Sidewalk	592.87
-298028 rows × 3 columns
+
 
 service_group_by_city_Request_time = pd.DataFrame(service.groupby(['City','Request_Closing_Time_in_Hr']).size())
 service_group_by_city_Request_time
 0
-City	Request_Closing_Time_in_Hr	
-ARVERNE	0.20	1
-0.22	1
-0.24	1
-0.30	1
-0.31	1
-...	...	...
-Woodside	13.71	1
-15.57	1
-16.13	1
-16.93	1
-28.17	1
-40799 rows × 1 columns
 
 service_group_by_city_Request_time.loc['BROOKLYN']
 #service_group_by_city_Request_time.loc['BROOKLYN'].sum()
@@ -419,18 +332,7 @@ service_data_mined['Request_Closing_Time_in_hr']=service_data_mined['Request_Clo
 
 service_data_mined
 City	Complaint Type	Request_Closing_Time	Request_Closing_Time_in_hr
-0	NEW YORK	Noise - Street/Sidewalk	00:55:15	0.92
-1	ASTORIA	Blocked Driveway	01:26:16	1.44
-2	BRONX	Blocked Driveway	04:51:31	4.86
-3	BRONX	Illegal Parking	07:45:14	7.75
-4	ELMHURST	Illegal Parking	03:27:02	3.45
-...	...	...	...	...
-300693	NaN	Noise - Commercial	04:18:51.832782	4.31
-300694	RICHMOND HILL	Blocked Driveway	02:00:31	2.01
-300695	BROOKLYN	Noise - Commercial	03:07:17	3.12
-300696	BRONX	Noise - Commercial	04:05:33	4.09
-300697	NEW YORK	Noise - Commercial	04:08:49	4.15
-300698 rows × 4 columns
+
 
 Hypothesis_Testing -- Anova Testing
 Whether the average response time across complaint types is similar or not (overall)
@@ -438,6 +340,8 @@ Whether the average response time across complaint types is similar or not (over
 # H0 : All Complain Types average response time mean is similar
 #H1 : All Complain Types average response time mean is Not similar
 # I choose a traditional method to do our calculatin and find P - value to prove the same .
+
+
 #for that let us create a data frame where we have Complaint types and mean of each complaint type so that we can check for relation between them.
 import statistics
 import scipy
@@ -464,7 +368,7 @@ Com_Type	Average	Mean
 ...	...	...	...
 300693	Noise - Commercial	4.31	3.157953
 300694	Blocked Driveway	2.01	4.739595
-300695	Noise - Commercial	3.12	3.157953
+300695	Noise - Commercial	3.12	3.157953 
 300696	Noise - Commercial	4.09	3.157953
 300697	Noise - Commercial	4.15	3.157953
 300698 rows × 3 columns
@@ -528,6 +432,7 @@ Index(['Blocked Driveway', 'Illegal Parking', 'Noise - Street/Sidewalk',
 Data_City = service['City'].value_counts()[:5]
 Data_City
 
+
 # The beloe are the top 5 location types with many complaints 
 BROOKLYN         98307
 NEW YORK         65994
@@ -538,6 +443,10 @@ Name: City, dtype: int64
 Major_complaints_location = Data_City.index
 Major_complaints_location
 Index(['BROOKLYN', 'NEW YORK', 'BRONX', 'STATEN ISLAND', 'JAMAICA'], dtype='object')
+
+
+
+
 #Will make a matrix of the above two
 
 Major_complaints_location_and_complaint_type = service.loc[(service['Complaint Type'].isin(Data_Complaint_Major)) & (service['City'].isin(Major_complaints_location)), ['Complaint Type', 'City']]
@@ -546,6 +455,8 @@ Major_complaints_location_and_complaint_type
 
 #From above we could see Major complaint types and locations where the complaint has been raised  with indexes of those.
 Complaint Type	City
+
+
 0	Noise - Street/Sidewalk	NEW YORK
 2	Blocked Driveway	BRONX
 3	Illegal Parking	BRONX
