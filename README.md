@@ -153,39 +153,6 @@ service['Complaint Type'].value_counts().plot(kind='barh',color=list('rgbkymc'),
 plt.title("Density of differnet non-emergency services")
 plt.show
 #This shows the occurence of more complaints in different occasions
-['Noise - Street/Sidewalk' 'Blocked Driveway' 'Illegal Parking'
- 'Derelict Vehicle' 'Noise - Commercial' 'Noise - House of Worship'
- 'Posting Advertisement' 'Noise - Vehicle' 'Animal Abuse' 'Vending'
- 'Traffic' 'Drinking' 'Bike/Roller/Skate Chronic' 'Panhandling'
- 'Noise - Park' 'Homeless Encampment' 'Urinating in Public' 'Graffiti'
- 'Disorderly Youth' 'Illegal Fireworks' 'Ferry Complaint' 'Agency Issues'
- 'Squeegee' 'Animal in a Park']
-Blocked Driveway             77044
-Illegal Parking              75361
-Noise - Street/Sidewalk      48612
-Noise - Commercial           35577
-Derelict Vehicle             17718
-Noise - Vehicle              17083
-Animal Abuse                  7778
-Traffic                       4498
-Homeless Encampment           4416
-Noise - Park                  4042
-Vending                       3802
-Drinking                      1280
-Noise - House of Worship       931
-Posting Advertisement          650
-Urinating in Public            592
-Bike/Roller/Skate Chronic      427
-Panhandling                    307
-Disorderly Youth               286
-Illegal Fireworks              168
-Graffiti                       113
-Agency Issues                    6
-Squeegee                         4
-Ferry Complaint                  2
-Animal in a Park                 1
-Name: Complaint Type, dtype: int64
-<function matplotlib.pyplot.show(*args, **kw)>
 
 
 plt.figure(figsize=(20,15))
