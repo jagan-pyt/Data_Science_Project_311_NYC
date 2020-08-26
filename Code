@@ -1,0 +1,51 @@
+service =pd.read_csv("D:\Python\Data\311_Service.csv")
+
+service.describe()
+
+service.head() service.tail() service['Created Date']
+
+service.info()
+
+service service.isnull().sum()
+
+selected_columns = service[["Complaint Type","Descriptor"]]
+
+Complaint_Attributes = selected_columns .copy() Complaint_Attributes
+
+service.groupby(['Complaint Type','Descriptor']).size()
+
+service['Created Date']= pd.to_datetime(service['Created Date']) service['Closed Date']= pd.to_datetime(service['Closed Date'])
+
+dt = pd.DataFrame(data=service ,columns = ['Created Date','Closed Date']) dt.dtypes
+
+service['Request_Closing_Time'] = service['Closed Date']-service['Created Date']
+
+service['Request_Closing_Time'].describe()
+
+service['Request_Closing_Time_in_Hr']=service['Request_Closing_Time'].apply(toHr)
+
+def hourToCategory(hr): if (math.isnan(hr)): return 'Unspecified' elif (hr < 2.0): return 'Fast' elif (4.0 > hr >= 2.0): return 'Acceptable' elif (6.0 > hr >= 4.0): return 'Slow' else: return 'Very Slow'
+
+service['Handling_Time_Category'] = service['Request_Closing_Time_in_Hr'].apply(hourToCategory)
+
+service['Handling_Time_Category']              ------                     0 Fast 1 Fast 2 Slow 3 Very Slow 4 Acceptable ...
+
+sns.scatterplot(data=service,x='Handling_Time_Category',hue='City',y='Location Type')
+
+sns.scatterplot(data=service,x='Handling_Time_Category',y='Location Type')
+
+plt.figure(figsize=(10,8)) service['Status'].hist(bins=60) plt.title("Status of cases") plt.xlabel("Status_Category") plt.ylabel("No.of cases") plt.show()
+
+
+service['Request_Closing_Time'].mean() 
+
+service['Mean_Request_Closing_Time_in_Hr'] = service['Request_Closing_Time_in_Hr'].fillna(service['Request_Closing_Time'].mean()) service['Mean_Request_Closing_Time_in_Hr']
+
+select_columns = service[["City","Complaint Type","Request_Closing_Time"]] service['City'].isnull().sum() 2614 sns.boxplot(y=service['City'],x=service['Request_Closing_Time_in_Hr'])
+
+service_data_mined = select_columns .copy()
+
+service_data_mined['Request_Closing_Time'].fillna(service['Request_Closing_Time'].mean(),inplace=True) service_data_mined['Request_Closing_Time_in_hr']=service_data_mined['Request_Closing_Time'].apply(toHr)
+
+service_data_mined City Complaint Type Request_Closing_Time Request_Closing_Time_in_hr
+
